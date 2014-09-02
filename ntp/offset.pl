@@ -9,7 +9,8 @@ my $NTPQ = '/usr/bin/ntpq -c rv';
 open(NTPQ_OUT, "$NTPQ |");
 while(<NTPQ_OUT>) {
     /offset=([0-9.-]+), / or next;
-    my $offset = $1; 
+    # We report the offset in seconds
+    my $offset = (( $1 / 1000 )); 
     if ($offset >= 0) {
         print $offset."\n0\n";
     } else {
